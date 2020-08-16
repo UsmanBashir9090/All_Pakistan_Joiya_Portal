@@ -4,244 +4,213 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JoiyaMembershipForm">
-
-
+    android:background="@drawable/back"
+    tools:context=".JoiyaMembershipForm"
+    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/blues"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:paddingLeft="28dp"
-            android:text="Joiya Membership Form"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/profileFullName"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Your Name"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:ignore="Suspicious0dp" />
+            android:layout_weight="1"
+            >
 
-        <EditText
-            android:id="@+id/profileEmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:ems="10"
-            android:hint="Your Email Address"
-            android:inputType="textEmailAddress"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-        <EditText
-            android:id="@+id/profilePhoneNo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:ems="10"
-            android:hint="Phone"
-            android:inputType="phone"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileEmailAddress"
-            tools:ignore="Suspicious0dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:text="Membership Form"
+                    android:textSize="25dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:textColor="#fff"
+                    />
+
+                <EditText
+                    android:id="@+id/profileFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Full Name"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff" />
+
+                <EditText
+                    android:id="@+id/profilePhoneNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Contact No."
+                    android:textColor="#fff"
+                    android:inputType="number"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff" />
+
+                <EditText
+                    android:id="@+id/profileEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Email"
+                    android:textColor="#fff"
+                    android:inputType="textEmailAddress"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff" />
+
+                <EditText
+                    android:id="@+id/profileAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Address"
+                    android:textColor="#fff"
+                    android:inputType="text"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff" />
+
+                <EditText
+                    android:id="@+id/profileCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="City"
+                    android:textColor="#fff"
+                    android:inputType="text"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff"  />
 
 
-        <EditText
-            android:id="@+id/profileFathersName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Father's Name"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilePhoneNo" />
+                <EditText
+                    android:id="@+id/profileCNIC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="CNIC"
+                    android:textColor="#fff"
+                    android:inputType="number"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff"  />
 
-        <EditText
-            android:id="@+id/profileCNIC"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="CNIC"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
-        <EditText
-            android:id="@+id/profileEducation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Education"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileCNIC" />
+                <EditText
+                    android:id="@+id/profileFathersName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Father Name"
+                    android:textColor="#fff"
+                    android:inputType="text"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff"  />
 
-        <TextView
-            android:id="@+id/profileDOB"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Date of Birth"
-            android:inputType="date"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileFathersName" />
 
-        <EditText
-            android:id="@+id/profileProfession"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Profession"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileEducation" />
 
-        <EditText
-            android:id="@+id/profileDesignation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Designation"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileProfession" />
 
-        <EditText
-            android:id="@+id/profileAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="Address"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileDesignation" />
 
-        <EditText
-            android:id="@+id/profileCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="City"
-            android:inputType="textPersonName"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profileAddress" />
 
-        <ProgressBar
-            android:id="@+id/progressBarForm"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15sp" />
+                <EditText
+                    android:id="@+id/profileEducation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Education"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff"  />
 
-        <Button
-            android:id="@+id/saveProfileInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15sp"
-            android:layout_marginBottom="16dp"
-            android:text="Save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
+
+                <EditText
+                    android:id="@+id/profileDesignation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Designation"
+                    android:textColor="#fff"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff"  />
+
+
+
+                <EditText
+                    android:id="@+id/profileProfession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Profession"
+                    android:textColor="#fff"
+                    android:inputType="text"
+                    android:paddingBottom="15dp"
+                    app:backgroundTint="#fff"
+                    android:textColorHint="#fff"  />
+
+
+                <TextView
+                    android:id="@+id/profileDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="DOB"
+                    android:textSize="18sp"
+                    android:textColor="#fff"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    app:backgroundTint="#fff"
+                    android:layout_marginTop="2dp"
+                    android:textColorHint="#fff"  />
+
+
+
+
+
+
+                <Button
+                    android:id="@+id/submit_h"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/roudbutton"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>

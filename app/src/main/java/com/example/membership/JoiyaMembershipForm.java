@@ -24,6 +24,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -35,9 +38,12 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.annotation.Nullable;
 
@@ -52,7 +58,8 @@ public class JoiyaMembershipForm extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
-    String userId;
+    DatabaseReference memberDB;
+    String uid;
     ProgressBar saveProgressBar;
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener onDateSetListener,mDateSetListener;
@@ -63,10 +70,6 @@ public class JoiyaMembershipForm extends AppCompatActivity {
         setContentView(R.layout.activity_joiya_membership_form);
         Toast.makeText(this, "Form opened.", Toast.LENGTH_SHORT).show();
 
-        Intent data = getIntent();
-        final String fullName = data.getStringExtra("fName");
-        String email = data.getStringExtra("email");
-        final String phone = data.getStringExtra("phone");
 
         mDisplayDate = (TextView) findViewById(R.id.profileDOB);
         profileProfession = findViewById(R.id.profileProfession);
@@ -79,15 +82,13 @@ public class JoiyaMembershipForm extends AppCompatActivity {
         profileFullName = findViewById(R.id.profileFullName);
         profileEmail = findViewById(R.id.profileEmailAddress);
         profilePhone = findViewById(R.id.profilePhoneNo);
-        saveProgressBar = findViewById(R.id.progressBarForm);
-        saveBtn = findViewById(R.id.saveProfileInfo);
+        saveBtn = findViewById(R.id.submit_h);
 
-        fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
 
-        userId = fAuth.getCurrentUser().getUid();
 
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+
+       mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
@@ -113,99 +114,123 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                 }
             };
 
-        final DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                profilePhone.setText(documentSnapshot.getString("phone"));
-                profileFullName.setText(documentSnapshot.getString("fName"));
-                profileEmail.setText(documentSnapshot.getString("email"));
-            }
-        });
 
 
+        memberDB= FirebaseDatabase.getInstance().getReference("users");
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              final String fathersName = profileFathersName.getText().toString();
-              final String CNIC = profileCNIC.getText().toString().trim();
-              final String education = profileEducation.getText().toString().trim();
-              final String profession = profileProfession.getText().toString();
-              final String designation = profileDesignation.getText().toString().trim();
-              final String address = profileAddress.getText().toString().trim();
-              final String city = profileCity.getText().toString().trim();
-              final String dob = mDisplayDate.getText().toString();
+                final String name = profileFullName.getText().toString();
+                final String email = profileEmail.getText().toString();
+                final String phone = profilePhone.getText().toString();
+                final String fathersName = profileFathersName.getText().toString();
+                final String CNIC = profileCNIC.getText().toString().trim();
+                final String education = profileEducation.getText().toString().trim();
+                final String profession = profileProfession.getText().toString();
+                final String designation = profileDesignation.getText().toString().trim();
+                final String address = profileAddress.getText().toString().trim();
+                final String city = profileCity.getText().toString().trim();
+                final String dob = mDisplayDate.getText().toString();
 
 
-              if(TextUtils.isEmpty(fathersName) ){
-                  profileFathersName.setError("Father's Name is required");
-              }
-                if(TextUtils.isEmpty(dob) ){
-                    mDisplayDate.setError("Date of Birth is required");
+                if (TextUtils.isEmpty(fathersName)) {
+                    profileFathersName.setError("Father's Name is required");
+                    profileFathersName.requestFocus();
+                    return;
                 }
-              if(TextUtils.isEmpty(CNIC) ){
-                  profileCNIC.setError("CNIC is required");
-              }
-              if(CNIC.length() != 13){
-                  profileCNIC.setError("CNIC length should be 13 digits");
-              }
-              if(TextUtils.isEmpty(education)){
-                  profileEducation.setError("Education is required");
-              }
-              if(TextUtils.isEmpty(profession) ){
-                  profileProfession.setError("Profession is required");
-              }
-              if(TextUtils.isEmpty(designation)){
-                  profileDesignation.setError("Designation is required");
-              }
-              if(TextUtils.isEmpty(address)){
-                  profileAddress.setError("Address is required");
-              }
-              if(TextUtils.isEmpty(city)){
-                  profileCity.setError("City is required");
-              }
-                else {
-                  saveProgressBar.setVisibility(View.VISIBLE);
 
-                  userId = fAuth.getCurrentUser().getUid();
-                  DocumentReference documentReference = fStore.collection("users").document(userId);
-                  Map<String, Object> user = new HashMap<>();
-                  user.put("fName", profileFullName.getText().toString());
-                  user.put("email", profileEmail.getText().toString());
-                  user.put("phone", profilePhone.getText().toString());
-                  user.put("fatherName", fathersName);
-                  user.put("CNIC", CNIC);
-                  user.put("education", education);
-                  user.put("profession", profession);
-                  user.put("designation", designation);
-                  user.put("address", address);
-                  user.put("city", city);
-                  user.put("date_of_birth", dob);
+                if (TextUtils.isEmpty(name)) {
+                    profileFullName.setError("Name is required");
+                    profileFullName.requestFocus();
+                    return;
+                }
 
-                  documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                      @Override
-                      public void onSuccess(Void aVoid) {
-                          Toast.makeText(JoiyaMembershipForm.this, "Successfully Submitted Form.", Toast.LENGTH_SHORT).show();
-                          Log.d(TAG, "onSuccess: Form successfully created " + userId);
-                          saveProgressBar.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(email)) {
+                    profileEmail.setError("Email is required");
+                    profileEmail.requestFocus();
+                    return;
+                }
 
-                      }
-                  }).addOnFailureListener(new OnFailureListener() {
-                      @Override
-                      public void onFailure(@NonNull Exception e) {
-                          Toast.makeText(JoiyaMembershipForm.this, "Form Submission Failed.", Toast.LENGTH_SHORT).show();
-                          Log.d(TAG1, "onFailure: " + e.toString());
-                      }
-                  });
-                    
-                  startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                if (TextUtils.isEmpty(phone)) {
+                    profilePhone.setError("Phone Number is required");
+                    profilePhone.requestFocus();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(dob)) {
+                    mDisplayDate.setError("Date of Birth is required");
+                    mDisplayDate.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(CNIC)) {
+                    profileCNIC.setError("CNIC is required");
+                    profileCNIC.requestFocus();
+                    return;
+                }
+                if (CNIC.length() != 13) {
+                    profileCNIC.setError("CNIC length should be 13 digits");
+                    profileCNIC.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(education)) {
+                    profileEducation.setError("Education is required");
+                    profileEducation.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(profession)) {
+                    profileProfession.setError("Profession is required");
+                    profileProfession.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(designation)) {
+                    profileDesignation.setError("Designation is required");
+                    profileDesignation.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(address)) {
+                    profileAddress.setError("Address is required");
+                profileAddress.requestFocus();
+                return;
+                }
+                if (TextUtils.isEmpty(city)) {
+                    profileCity.setError("City is required");
+                    profileCity.requestFocus();
+                    return;
+                }
 
 
+                user=FirebaseAuth.getInstance().getCurrentUser();
+                uid=user.getUid();
+                String role="user";
+                String status="Your Application is Pending";
 
-              }
+                memberData placeorder = new memberData( name, email, phone, fathersName, profession, dob, designation, education, address, city, CNIC, role, getDateCurrentTimeZone(ServerValue.TIMESTAMP), status);
+                memberDB.child(uid).setValue(placeorder);
+
+                Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(JoiyaMembershipForm.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+
             }
         });
 
+
+    }
+
+
+    public  String getDateCurrentTimeZone(Map<String, String> timestamp) {
+        try{
+            Calendar calendar = Calendar.getInstance();
+            TimeZone tz = TimeZone.getTimeZone("Asia/karachi");
+            //   calendar.setTimeInMillis(timestamp * 1000);
+            calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.getTimeInMillis()));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss aaa");
+            Date currenTimeZone = (Date) calendar.getTime();
+            return sdf.format(currenTimeZone);
+        }catch (Exception e) {
+        }
+        return "";
     }
 }

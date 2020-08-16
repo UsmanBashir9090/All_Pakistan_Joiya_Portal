@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         mPassword = findViewById(R.id.password);
         mLoginBtn = findViewById(R.id.loginBtn);
         mCreateBtn = findViewById(R.id.createTEXT);
-        progressBar = findViewById(R.id.progressBar2);
+        progressBar = findViewById(R.id.progressbar);
         fAuth = FirebaseAuth.getInstance();
         mforgetlink = findViewById(R.id.forgetBtn);
 
@@ -56,9 +56,9 @@ public class Login extends AppCompatActivity {
                     mPassword.setError("Password is required");
                     return;
                 }
-                if(password.length() < 8){
+             /*   if(password.length() < 8){
                     mPassword.setError("Password must be at least 8 characters");
-                }
+                }  */
 
                 progressBar.setVisibility(View.VISIBLE);
 
@@ -70,6 +70,7 @@ public class Login extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                         } else {
                             Toast.makeText(Login.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
