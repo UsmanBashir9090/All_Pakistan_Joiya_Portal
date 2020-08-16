@@ -204,8 +204,9 @@ public class JoiyaMembershipForm extends AppCompatActivity {
                 uid=user.getUid();
                 String role="user";
                 String status="Your Application is Pending";
+                String status1="pending";
 
-                memberData placeorder = new memberData( name, email, phone, fathersName, profession, dob, designation, education, address, city, CNIC, role, getDateCurrentTimeZone(ServerValue.TIMESTAMP), status);
+                memberData placeorder = new memberData( name, email, phone, fathersName, profession, dob, designation, education, address, city, CNIC, role, getDateCurrentTimeZone(ServerValue.TIMESTAMP), status, status1);
                 memberDB.child(uid).setValue(placeorder);
 
                 Toast.makeText(getApplicationContext(), "Form Submitted Successfully", Toast.LENGTH_SHORT).show();

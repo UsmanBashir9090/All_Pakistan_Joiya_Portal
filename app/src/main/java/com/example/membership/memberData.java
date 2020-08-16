@@ -2,7 +2,7 @@ package com.example.membership;
 
 
 public class memberData {
-    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status;
+    public String name, email, fatherName, profession, profileDob, designation, education, address, city, phone, cnic, role, timestamp, status, status1;
      ;
 
 
@@ -10,7 +10,7 @@ public class memberData {
 
     }
 
-    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String role, String timestamp, String status) {
+    public memberData(String name, String email, String phone, String fatherName, String profession, String profileDob, String designation, String education, String address, String city, String cnic, String role, String timestamp, String status, String status1) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -25,6 +25,7 @@ public class memberData {
         this.role =role;
         this.timestamp=timestamp;
         this.status=status;
+        this.status1=status1;
 
     }
 
@@ -53,6 +54,10 @@ public class memberData {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getStatus1() {
+        return status1;
     }
 }
 
