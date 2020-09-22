@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:background="@drawable/back"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_marginTop="150dp"
+                android:layout_height="110dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@drawable/tablogo"
+                />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="Joiya Portal"
+                android:textFontWeight="700"
+                android:fontFamily="@font/js"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textColorHint="@color/colorAccent"
+                />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:paddingRight="25dp"
+                android:paddingLeft="25dp">
+
+                <Button
+                    android:id="@+id/orders"
+                    android:layout_width="145dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/round_button"
+                    android:elevation="3dp"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableTop="@drawable/terms"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:text="Pending"
+                    android:textColor="#000000"
+                    android:textSize="14dp"/>
+
+
+
+
+
+                <Button
+                    android:id="@+id/dispatched_orders"
+                    android:layout_width="145dp"
+                    android:layout_height="140dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/round_button"
+                    android:layout_alignParentRight="true"
+                    android:elevation="3dp"
+                    android:drawableTop="@drawable/pen_req"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Approved"
+                    android:textColor="#000000"
+                    android:textSize="13dp"
+                    />
+
+
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -21,6 +21,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
@@ -28,6 +34,9 @@ public class Login extends AppCompatActivity {
     TextView mCreateBtn, mforgetlink;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
+    DatabaseReference userdb;
+    FirebaseUser user;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +47,12 @@ public class Login extends AppCompatActivity {
         mPassword = findViewById(R.id.password);
         mLoginBtn = findViewById(R.id.loginBtn);
         mCreateBtn = findViewById(R.id.createTEXT);
-        progressBar = findViewById(R.id.progressBar2);
+        progressBar = findViewById(R.id.progressbar);
         fAuth = FirebaseAuth.getInstance();
         mforgetlink = findViewById(R.id.forgetBtn);
+
+
+        userdb = FirebaseDatabase.getInstance().getReference().child("users");
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +64,9 @@ public class Login extends AppCompatActivity {
                     mEmail.setError("Email is required");
                     return;
                 }
-                if(TextUtils.isEmpty(password)){
+                if(TextUtils.isEmpty(password)) {
                     mPassword.setError("Password is required");
                     return;
-                }
-                if(password.length() < 8){
-                    mPassword.setError("Password must be at least 8 characters");
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -68,8 +77,31 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Login.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            userdb.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    user=FirebaseAuth.getInstance().getCurrentUser();
+                                    uid=user.getUid();
+                                    String role = dataSnapshot.child(uid).child("role").getValue(String.class);
+                                    if (role.equals("admin")) {
+                                        Toast.makeText(Login.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(Login.this, admin.class);
+                                        startActivity(intent);
+                                    }
+
+                                    else {
+                                        Toast.makeText(Login.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
                         } else {
                             Toast.makeText(Login.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -128,5 +160,35 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        fAuth = FirebaseAuth.getInstance();
+        if(fAuth.getCurrentUser() != null){
+            userdb.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    user=FirebaseAuth.getInstance().getCurrentUser();
+                    uid=user.getUid();
+                    String role = dataSnapshot.child(uid).child("role").getValue(String.class);
+                    if (role.equals("admin")) {
+                        Intent intent = new Intent(Login.this, admin.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }
